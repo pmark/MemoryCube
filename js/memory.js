@@ -2,6 +2,7 @@ $(function() {
 
     function tileClicked()
     {
+    	console.log("tileClicked");
         $(this).css("background-color", "red");
     }
 
@@ -13,37 +14,61 @@ $(function() {
     var NUM_COLUMNS = 4,
     	NUM_ROWS = 3,
     	NUM_FACES = 4,
-    	tileNum = 0;
+    	NUM_TILES_PER_FACE = (NUM_COLUMNS * NUM_ROWS),
+    	NUM_TILES = (NUM_TILES_PER_FACE * NUM_FACES);
 
 
+    function createTile(tileNum)
+    {
+		var $tile = $("<div>", {
+			id: ("tile" + tileNum),
+			class: "tile"
+		});
 
-    for (var f=0; f < NUM_FACES; f++)
+		var $card = $("<div>", {
+			class: "card flipped"
+		})
+
+		var $front = $("<img>", {
+			class: "front",
+			src: "images/zeppelin.png"
+		});
+
+		var $back = $("<img>", {
+			class: "back",
+			src: "images/back.png"
+		});
+
+		$card.append($front).append($back);
+		$tile.html($card);
+
+		$tile.click(cardClicked);
+
+    	var faceNum = parseInt(tileNum / NUM_TILES_PER_FACE);
+		$("#face" + faceNum).append($tile);
+    }
+
+    for (var t=0; t < NUM_TILES; t++)
     {	
-    	var $face = $("#face" + f);
-    	console.log("face" + f);
+    	createTile(t);
+    }
 
-	    for (var r=0; r < NUM_ROWS; r++)
-	    {	
-    		var rowName = "row" + r;
-    		console.log("row" + r);
+    function cardClicked(evt)
+    {
+    	// Flip if not flipped.
 
-	    	for (var c=0; c < NUM_COLUMNS; c++)
-	    	{
-	    		var columnName = "column" + c;
-	    		console.log("column" + c);
+    	var $card = $(this).children(".card");
 
-	    		var $tile = $("<div>", {
-	    			class: ["tile", rowName, columnName].join(' ')
-	    		});
+    	if ($card.hasClass("flipped"))
+    	{
+    		$card.removeClass("flipped");
+    	}
+    	else
+    	{
+    		$card.addClass("flipped");
+    	}
 
-	    		console.log($tile);
-	    		$tile.html(tileNum);
 
-	    		$face.append($tile);
-	    		tileNum++;
-	    	}
-	    }
-	}
-
+    }
  
 });

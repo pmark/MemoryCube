@@ -21,7 +21,7 @@ $(function(){
 	    viewport = {
 	    	x: -10, 
 			y: 20, 
-			el: $('.cube')[0],
+			el: $('.touchcube')[0],
 			move: function(coords) {
 				if(coords) {
 					if(typeof coords.x === "number") this.x = coords.x;
@@ -42,10 +42,12 @@ $(function(){
 	}();
 	
 	$(document).keydown(function(evt) {
+		var $face = $("#face")
+		
 		switch(evt.keyCode)
 		{	
 			case 37: // left
-				viewport.move({y: viewport.y - 90});
+				viewport.move({y: viewport.y - 100});
 				break;
 			
 			case 38: // up
@@ -96,7 +98,7 @@ $(function(){
 	$('.viewport').bind('move-viewport', function(evt, movedMouse) {
 	
 		// Reduce movement on touch screens
-		var movementScaleFactor = touch ? 4 : 1;
+		var movementScaleFactor = touch ? 4 : 3;
 		
 		if (!mouse.last) {
 	  		mouse.last = mouse.start;
@@ -110,7 +112,7 @@ $(function(){
 		}
 		
 		viewport.move({
-			x: viewport.x + parseInt((mouse.start.y - movedMouse.y)/movementScaleFactor),
+			// x: viewport.x + parseInt((mouse.start.y - movedMouse.y)/movementScaleFactor),
 			y: viewport.y - parseInt((mouse.start.x - movedMouse.x)/movementScaleFactor)
 		});
 		
@@ -124,7 +126,7 @@ $(function(){
 	
 	/* Just for fun */
 	if(!touch) {
-		// $('.cube > div').eq(2).html('<object width="360" height="360"><param name="movie" value="http://www.youtube.com/v/MY5PkidV1cM?fs=1&amp;hl=en_GB&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/MY5PkidV1cM?fs=1&amp;hl=en_GB&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="360" height="360"></embed></object>');
+		// $('.touchcube > div').eq(2).html('<object width="360" height="360"><param name="movie" value="http://www.youtube.com/v/MY5PkidV1cM?fs=1&amp;hl=en_GB&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/MY5PkidV1cM?fs=1&amp;hl=en_GB&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="360" height="360"></embed></object>');
 	}
 	
 });

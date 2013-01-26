@@ -26,7 +26,7 @@ $(function() {
 		});
 
 		var $card = $("<div>", {
-			class: "card flipped"
+			class: "card facedown"
 		})
 
 		var $front = $("<img>", {
@@ -53,21 +53,62 @@ $(function() {
     	createTile(t);
     }
 
+    var GAME_STATE_READY = 0;
+    var GAME_STATE_ONE_CARD_FACE_UP = 1;
+    var GAME_STATE_TWO_CARDS_FACE_UP = 2;
+    var _gameState = GAME_STATE_READY;
+
+    function cardsMatch(card1, card2)
+    {
+    	return ($(card1).attr('src') === $(card2).attr('src'));
+    }
+
+    function checkForMatch()
+    {
+		var faceupCards = $(".faceup");
+
+		if (cardsMatch(faceupCards[0], faceupCards[1]))
+		{
+			console.log("match!");
+		}
+		else
+		{
+			console.log("no match");
+		}
+
+		setTimeout(resetCards, 1000);
+
+    }
+
+    function resetCards()
+    {
+		$(".faceup").removeClass("faceup").addClass("facedown");
+		_gameState = GAME_STATE_READY;
+    }
+
     function cardClicked(evt)
     {
-    	// Flip if not flipped.
+    	// Flip if not faceup.
 
     	var $card = $(this).children(".card");
 
-    	if ($card.hasClass("flipped"))
+    	switch (_gameState)
     	{
-    		$card.removeClass("flipped");
-    	}
-    	else
-    	{
-    		$card.addClass("flipped");
-    	}
+    		case GAME_STATE_READY:
+	    		$card.removeClass("facedown").addClass("faceup");
+    			_gameState = GAME_STATE_ONE_CARD_FACE_UP;
+	    		break;
 
+    		case GAME_STATE_ONE_CARD_FACE_UP:
+	    		$card.removeClass("facedown").addClass("faceup");
+    			_gameState = GAME_STATE_TWO_CARDS_FACE_UP;
+    			checkForMatch();
+	    		break;
+
+    		case GAME_STATE_TWO_CARDS_FACE_UP:
+	    		break;
+
+    	}
 
     }
  

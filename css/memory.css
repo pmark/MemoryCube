@@ -16,6 +16,13 @@ div {
 }
 
 .tile {
+  text-align: center;
+  border: 1px solid orange;
+  background-color: #444;
+  height: 97px;
+  width: 97px;
+  float: left;
+  margin: 10px;
 }
 
 .card {

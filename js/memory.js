@@ -1,25 +1,65 @@
-$(function() {
+$(function() 
+{
+
+    // For each piece there are 2 tiles.
+    // When a 2nd tile is selected, compare p
+
+    var Piece = function(tileNumber, src)
+    {
+        this.tileNumber = tileNumber;
+        this.src = src;
+    };
+
+
+    // Draw the grid.
+
+    var NUM_COLUMNS = 3,
+    	NUM_ROWS = 3,
+    	NUM_FACES = 4,
+    	NUM_TILES_PER_FACE = (NUM_COLUMNS * NUM_ROWS),
+    	NUM_TILES = (NUM_TILES_PER_FACE * NUM_FACES),
+        MAX_PIECES = NUM_TILES/2,
+        pieces = [];
+
 
     function tileClicked()
     {
-    	console.log("tileClicked");
+        console.log("tileClicked");
         $(this).css("background-color", "red");
     }
 
     $('.tile').click(tileClicked);
 
+    var pieceNumbers = [];
+    var pn = 0;
 
-    // Draw the 4x3 grid.
+    while (pn < MAX_PIECES)
+    {
+        pieceNumbers.push(pn);
+        pieceNumbers.push(pn);
+        pn += 1;
+    }
 
-    var NUM_COLUMNS = 4,
-    	NUM_ROWS = 3,
-    	NUM_FACES = 4,
-    	NUM_TILES_PER_FACE = (NUM_COLUMNS * NUM_ROWS),
-    	NUM_TILES = (NUM_TILES_PER_FACE * NUM_FACES);
+    // Given a set of numbers from 0 - 17,
+    // Assign each number twice to a set of numbers ranging from 0-35.
 
 
     function createTile(tileNum)
     {
+        // Get a random piece number that hasn't been used twice yet.
+
+        var pieceNumberIndex = parseInt(Math.random() * pieceNumbers.length);
+        var pieceNum = pieceNumbers[pieceNumberIndex];
+
+        console.log("piece:", pieceNum);
+
+        // Remove this piece from the available pieces.
+        pieceNumbers.splice(pieceNumberIndex, 1);
+
+        var pieceImageSrc = "images/pieces/piece" + pieceNum + ".png";
+        // console.log(pieceNum);
+        
+
 		var $tile = $("<div>", {
 			id: ("tile" + tileNum),
 			class: "tile"
@@ -31,7 +71,7 @@ $(function() {
 
 		var $front = $("<img>", {
 			class: "front",
-			src: "images/zeppelin.png"
+			src: pieceImageSrc
 		});
 
 		var $back = $("<img>", {
@@ -49,9 +89,16 @@ $(function() {
     }
 
     for (var t=0; t < NUM_TILES; t++)
-    {	
+    {
     	createTile(t);
     }
+
+    console.log('\n\n--------------\n');
+    for (var key in pieceNumbers)
+    {
+        console.log(key, pieceNumbers[key]);
+    }
+
 
     var GAME_STATE_READY = 0;
     var GAME_STATE_ONE_CARD_FACE_UP = 1;

@@ -19,8 +19,8 @@ $(function(){
 	    },
 	    touch = document.ontouchmove !== undefined,
 	    viewport = {
-	    	x: -10, 
-			y: 20, 
+	    	x: 0,  // -10
+			y: 0,  // 20
 			el: $('.touchcube')[0],
 			move: function(coords) {
 				if(coords) {

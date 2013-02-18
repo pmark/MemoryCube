@@ -3,8 +3,9 @@ margin-top: 0;
 }
 
 .viewport {
--webkit-perspective: 800;
--webkit-perspective-origin: 50% 200px;
+	margin-top:150px;
+-webkit-perspective: 750;
+-webkit-perspective-origin: 50% 50%;
 /*-webkit-transform: scale(0.75,0.75);*/
 
 /*
@@ -40,17 +41,43 @@ margin-top: 0;
 color: #fff;
 }
 
-.touchcube > div {
+.touchcube .face {
 position: absolute;
 height: 360px;
 width: 360px;
 padding: 20px;
-background-color: rgba(50, 50, 50, 0.85);
+background-color: rgba(50, 50, 50, 0.89);
 font-size: 1em;
 line-height: 1em;
 color: #fff;
-border: 1px solid #555;
-border-radius: 3px;
+border: 1px solid #000;
+border-radius: 4px;
+}
+
+#face0 {
+background-color: rgba(0, 50, 150, 0.86);
+}
+
+#face1 {
+background-color: rgba(50, 0, 50, 0.86);
+}
+
+#face2 {
+background-color: rgba(250, 50, 0, 0.86);
+}
+
+#face3 {
+background-color: rgba(50, 200, 50, 0.86);
+}
+
+#player1 {
+background-color: rgba(0, 0, 0, 0.86);
+color:white;
+}
+
+#player2 {
+background-color: rgba(255, 255, 255, 0.86);
+color:black;
 }
 
 .touchcube > div:first-child  {
